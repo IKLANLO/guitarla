@@ -4,28 +4,41 @@ import Header from './components/Header/Header'
 import { db } from './data/db'
 function App() {
   const [data, setData] = useState([])
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     setData(db)
   }, [])
 
+  const addToCart = (item) => {
+    const itemExists = cart.findIndex(
+      (guitar) => guitar.id === item.id
+    )
+    
+    if (itemExists === -1) {
+      item.quantity = 1
+      setCart(prevCart => [...prevCart, item])
+    } else {
+      item.quantity++
+      setCart(prevCart => [...prevCart])
+    }
+    
+  }
+
   return (
     <>
-      <Header />
+      <Header cart={cart} />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
-          {db.map((item, id) => {
+          {db.map((guitar) => {
             return (
               <Guitar
-                key={id}
-                id={item.id}
-                name={item.name}
-                image={item.image}
-                description={item.description}
-                price={item.price}
+                key={guitar.id}
+                guitar={guitar}
+                addToCart= {addToCart}
               />
             )
           })}
