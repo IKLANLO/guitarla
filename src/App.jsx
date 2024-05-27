@@ -25,9 +25,28 @@ function App() {
     
   }
 
+  const removeFromCart = (id) => {
+    setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+  }
+
+  const increaseQuantity = (item) => {
+      item.quantity++
+      setCart(prevCart => [...prevCart])
+  }
+
+  const decreaseQuantity = (item) => {
+    if (item.quantity === 1) {
+      removeFromCart(item.id)
+    } else {
+      item.quantity--
+      setCart(prevCart => [...prevCart])
+    }
+  }
+
   return (
     <>
-      <Header cart={cart} />
+      <Header cart={cart} removeFromCart={removeFromCart} increaseQuantity={increaseQuantity} 
+      decreaseQuantity={decreaseQuantity} />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
