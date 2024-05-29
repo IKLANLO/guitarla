@@ -45,7 +45,7 @@ const Header = ({cart, removeFromCart, increaseQuantity, decreaseQuantity, clear
                         <td>
                           <img
                             className="img-fluid"
-                            src={`/img/${guitar.image}.jpg`}
+                            src={`../img/${guitar.image}.jpg`}
                             alt="imagen guitarra"
                           />
                         </td>
