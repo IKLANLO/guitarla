@@ -9,7 +9,7 @@ export default function Guitar ({guitar, addToCart}) {
         <img
           className="img-fluid"
           // src={`../img/${image}.jpg`}
-          src={`../../../public/img/${image}.jpg`}
+          src={`../../../img/${image}.jpg`}
           alt="imagen guitarra"
         />
       </div>
