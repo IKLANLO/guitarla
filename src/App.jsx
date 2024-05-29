@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import Guitar from './components/Guitar/Guitar'
 import Header from './components/Header/Header'

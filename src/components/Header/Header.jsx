@@ -1,3 +1,4 @@
+import React from 'react'
 import { useMemo } from "react"
 
 const Header = ({cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart}) => {

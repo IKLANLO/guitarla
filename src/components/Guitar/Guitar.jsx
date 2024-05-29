@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Guitar ({guitar, addToCart}) {
   const { id, name, image, description, price } = guitar
 
