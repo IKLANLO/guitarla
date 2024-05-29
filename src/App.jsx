@@ -3,8 +3,17 @@ import Guitar from './components/Guitar/Guitar'
 import Header from './components/Header/Header'
 import { db } from './data/db'
 function App() {
+  
+  const initialStorage = () => {
+    const cartStorage = localStorage.getItem('cart')
+    return cartStorage ? JSON.parse(cartStorage) : []
+  }
   const [data, setData] = useState([])
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(initialStorage())
+
+  useEffect(()=>{
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   useEffect(() => {
     setData(db)
@@ -43,10 +52,14 @@ function App() {
     }
   }
 
+  const clearCart = () => {
+    setCart([])
+  }
+
   return (
     <>
       <Header cart={cart} removeFromCart={removeFromCart} increaseQuantity={increaseQuantity} 
-      decreaseQuantity={decreaseQuantity} />
+      decreaseQuantity={decreaseQuantity} clearCart={clearCart}/>
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
