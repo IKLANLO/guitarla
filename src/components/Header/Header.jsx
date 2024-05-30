@@ -22,7 +22,7 @@ const Header = ({cart, removeFromCart, increaseQuantity, decreaseQuantity, clear
             <div className="carrito">
               <img
                 className="img-fluid"
-                src="./public/img/carrito.png"
+                src="/guitarla/img/carrito.png"
                 alt="imagen carrito"
               />
 
