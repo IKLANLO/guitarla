@@ -1,72 +1,24 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import Guitar from './components/Guitar/Guitar'
 import Header from './components/Header/Header'
-import { db } from './data/db'
+import { useCart } from './hooks/useCart'
+
 function App() {
   
-  const initialStorage = () => {
-    const cartStorage = localStorage.getItem('cart')
-    return cartStorage ? JSON.parse(cartStorage) : []
-  }
-  const [data, setData] = useState([])
-  const [cart, setCart] = useState(initialStorage())
-
-  useEffect(()=>{
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
-
-  useEffect(() => {
-    setData(db)
-  }, [])
-
-  const addToCart = (item) => {
-    const itemExists = cart.findIndex(
-      (guitar) => guitar.id === item.id
-    )
-    
-    if (itemExists === -1) {
-      item.quantity = 1
-      setCart(prevCart => [...prevCart, item])
-    } else {
-      item.quantity++
-      setCart(prevCart => [...prevCart])
-    }
-    
-  }
-
-  const removeFromCart = (id) => {
-    setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
-  }
-
-  const increaseQuantity = (item) => {
-      item.quantity++
-      setCart(prevCart => [...prevCart])
-  }
-
-  const decreaseQuantity = (item) => {
-    if (item.quantity === 1) {
-      removeFromCart(item.id)
-    } else {
-      item.quantity--
-      setCart(prevCart => [...prevCart])
-    }
-  }
-
-  const clearCart = () => {
-    setCart([])
-  }
+  const { data, cart, addToCart, removeFromCart, increaseQuantity, 
+    decreaseQuantity, clearCart, isEmpty, cartTotal } = useCart()
 
   return (
     <>
       <Header cart={cart} removeFromCart={removeFromCart} increaseQuantity={increaseQuantity} 
-      decreaseQuantity={decreaseQuantity} clearCart={clearCart}/>
+      decreaseQuantity={decreaseQuantity} clearCart={clearCart} isEmpty={isEmpty} 
+      cartTotal={cartTotal}/>
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
-          {db.map((guitar) => {
+          {data.map((guitar) => {
             return (
               <Guitar
                 key={guitar.id}
